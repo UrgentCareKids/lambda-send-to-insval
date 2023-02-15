@@ -8,12 +8,13 @@ import os
 from loguru import logger
 
 def handler(event,context):
-    body = event['Records'][0]['Sns']['Message']
-    logger.info('got here', event)
-    body = json.loads(body)
-    patient_id = body['patient_id']
+    # body = event['Records'][0]['Sns']['Message']
+    # logger.info('got here', event)
+    # body = json.loads(body)
+    # patient_id = body['patient_id']
+    payload = event
     print(event)
-    insval_process(patient_id)
+    insval_process(payload)
 
 ssm = boto3.client('ssm',  aws_access_key_id=os.environ['KEY'], aws_secret_access_key=os.environ['SECRET'],  region_name='us-east-2')
 param = ssm.get_parameter(Name='uck-etl-db-prod-masterdata', WithDecryption=True )
@@ -43,10 +44,10 @@ def insval_conn():
     conn_insval = psycopg2.connect(host=hostname,user=dbusername,port=portno,password=dbpassword,dbname=dbname)
     return conn_insval
 
-def insval_process(patient_id):
+def insval_process(payload):
     _targetconnection = insval_conn()
     cur = _targetconnection.cursor()
-    proc_call = f"call insval_queue_loader(0, '{patient_id}');"
+    proc_call = f"call insval_queue_loader(0, '{payload}');"
     cur.execute(proc_call,)
     _targetconnection.commit()
     _targetconnection.close()
