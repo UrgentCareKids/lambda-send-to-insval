@@ -1,2 +1,2 @@
-# lambda-send-to-insval
-Lambda to send data to the insurance validation service
+# lambda-ins-validation-queue
+Lambda to get patient demographic and insurance mappings from patient svc and write back to the ins_validation_svc queue.
