@@ -13,8 +13,8 @@ def handler(event,context):
     # body = json.loads(body)
     # patient_id = body['patient_id']
     payload = event
-    json.dumps(payload)
-    # json.loads(payload)
+    payload = json.dumps(payload)
+    payload = json.loads(payload)
     print(payload)
     print(event)
     insval_process(payload)
