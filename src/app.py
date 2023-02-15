@@ -47,7 +47,7 @@ def insval_conn():
 def insval_process(payload):
     _targetconnection = insval_conn()
     cur = _targetconnection.cursor()
-    proc_call = f"call insval_queue_loader(0, '{json.loads(payload)}');"
+    proc_call = f"call insval_queue_loader(0, '{json.dumps(payload)}');"
     cur.execute(proc_call,)
     _targetconnection.commit()
     _targetconnection.close()
