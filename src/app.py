@@ -14,6 +14,7 @@ def handler(event,context):
     # patient_id = body['patient_id']
     payload = event
     json.loads(payload)
+    print(payload)
     print(event)
     insval_process(payload)
 
