@@ -13,6 +13,7 @@ def handler(event,context):
     # body = json.loads(body)
     # patient_id = body['patient_id']
     payload = event
+    json.loads(payload)
     print(event)
     insval_process(payload)
 
@@ -47,7 +48,7 @@ def insval_conn():
 def insval_process(payload):
     _targetconnection = insval_conn()
     cur = _targetconnection.cursor()
-    proc_call = f'call insval_queue_loader(0, "{payload}");'
+    proc_call = f"call insval_queue_loader(0, '{payload}');"
     cur.execute(proc_call,)
     _targetconnection.commit()
     _targetconnection.close()
