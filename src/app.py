@@ -50,4 +50,3 @@ def insval_process(patient_id):
     cur.execute(proc_call,)
     _targetconnection.commit()
     _targetconnection.close()
-  
