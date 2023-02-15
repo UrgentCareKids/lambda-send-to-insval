@@ -8,13 +8,10 @@ import os
 from loguru import logger
 
 def handler(event,context):
-    # body = event['Records'][0]['Sns']['Message']
-    # logger.info('got here', event)
-    # body = json.loads(body)
-    # patient_id = body['patient_id']
+
     payload = event
-    payload = json.dumps(payload)
-    payload = json.loads(payload)
+    # payload = json.dumps(payload)
+    # payload = json.loads(payload)
     print(payload)
     print(event)
     insval_process(payload)
@@ -50,7 +47,7 @@ def insval_conn():
 def insval_process(payload):
     _targetconnection = insval_conn()
     cur = _targetconnection.cursor()
-    proc_call = f"call insval_queue_loader(0, '{payload}');"
+    proc_call = f"call insval_queue_loader(0, '{json.loads(payload)}');"
     cur.execute(proc_call,)
     _targetconnection.commit()
     _targetconnection.close()
